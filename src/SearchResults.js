@@ -23,7 +23,13 @@ const SearchResults = ({ searchTerm }) => {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        setResults(data.definitions);
+        const flattenedDefinitions = data.definitions.flatMap((entry) =>
+          entry.definitions.map((def) => ({
+            wordtype: def.wordtype,
+            definition: def.definition,
+          }))
+        );
+        setResults(flattenedDefinitions);
       } catch (err) {
         setError("Error fetching data: " + err.message);
       } finally {
@@ -47,8 +53,10 @@ const SearchResults = ({ searchTerm }) => {
                 Definitions for: {searchTerm}
               </Card.Title>
               <ul className="definition-list">
-                {results.map((definition, index) => (
-                  <li key={index}>{definition}</li>
+                {results.map((def, index) => (
+                  <li key={index}>
+                    <strong>{def.wordtype}: </strong> {def.definition}
+                  </li>
                 ))}
               </ul>
             </Card.Body>

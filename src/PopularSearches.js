@@ -8,7 +8,7 @@ const PopularSearches = () => {
   const fetchPopularSearches = async () => {
     try {
       const response = await fetch(
-        "https://dictionary-server-3.onrender.com/api/entries/popularSearches"
+        `https://dictionary-server-3.onrender.com/api/entries/popularSearches?timestamp=${Date.now()}`
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -26,7 +26,6 @@ const PopularSearches = () => {
       fetchPopularSearches();
       setCounter(25);
     }, 25000);
-
     return () => clearInterval(intervalId);
   }, []);
 
@@ -34,7 +33,6 @@ const PopularSearches = () => {
     const timerId = setInterval(() => {
       setCounter((prevCounter) => (prevCounter > 0 ? prevCounter - 1 : 25));
     }, 1000);
-
     return () => clearInterval(timerId);
   }, []);
 
@@ -50,11 +48,11 @@ const PopularSearches = () => {
         {popularTerms.length > 0 ? (
           popularTerms.map((term, index) => (
             <ListGroup.Item
-              key={index}
+              key={term._id}
               className="d-flex justify-content-between align-items-center"
             >
               <span>
-                {index + 1}. {term.term}
+                {index + 1}. {term.word}
               </span>
               <Badge
                 bg="secondary"
