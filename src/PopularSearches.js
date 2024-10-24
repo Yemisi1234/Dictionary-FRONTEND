@@ -26,13 +26,15 @@ const PopularSearches = () => {
       fetchPopularSearches();
       setCounter(25);
     }, 25000);
+
     return () => clearInterval(intervalId);
   }, []);
 
   useEffect(() => {
     const timerId = setInterval(() => {
-      setCounter((prevCounter) => (prevCounter > 0 ? prevCounter - 1 : 0));
+      setCounter((prevCounter) => (prevCounter > 0 ? prevCounter - 1 : 25));
     }, 1000);
+
     return () => clearInterval(timerId);
   }, []);
 
@@ -47,8 +49,20 @@ const PopularSearches = () => {
       <ListGroup variant="flush">
         {popularTerms.length > 0 ? (
           popularTerms.map((term, index) => (
-            <ListGroup.Item key={index}>
-              {index + 1}. {term.term}
+            <ListGroup.Item
+              key={index}
+              className="d-flex justify-content-between align-items-center"
+            >
+              <span>
+                {index + 1}. {term.term}
+              </span>
+              <Badge
+                bg="secondary"
+                className="ms-2"
+                style={{ fontSize: "0.8rem" }}
+              >
+                {term.searchCount} times
+              </Badge>
             </ListGroup.Item>
           ))
         ) : (

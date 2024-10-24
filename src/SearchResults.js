@@ -39,7 +39,7 @@ const SearchResults = ({ searchTerm }) => {
 
   return (
     <div className="mt-4">
-      {searchTerm ? ( // Check if there's a search term
+      {searchTerm ? (
         results.length > 0 ? (
           <Card className="definition-card">
             <Card.Body>
