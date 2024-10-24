@@ -1,8 +1,8 @@
 import React, { useState } from "react";
+import { Navbar, Container, Nav, Row, Col } from "react-bootstrap";
 import SearchForm from "./SearchForm";
 import SearchResults from "./SearchResults";
 import PopularSearches from "./PopularSearches";
-import { Container, Row, Col, Navbar, Nav } from "react-bootstrap";
 
 function App() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,11 +14,15 @@ function App() {
 
   return (
     <>
-      <Navbar bg="info" variant="light" expand="lg">
+      <Navbar expand="lg" className="custom-navbar">
         <Container>
-          <Navbar.Brand href="#">WAP Online Dictionary</Navbar.Brand>
+          <Navbar.Brand href="#" className="navbar-brand">
+            Online Dictionary
+          </Navbar.Brand>
           <Nav className="ms-auto">
-            <Nav.Link href="#popular">Popular Searches</Nav.Link>
+            <Nav.Link href="#popular" className="nav-link">
+              Popular Searches
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -32,12 +36,6 @@ function App() {
           </Col>
         </Row>
       </Container>
-
-      <footer className="text-center mt-5 py-3 bg-dark text-light">
-        <p className="mb-0">
-          © 2024 WAP Online Dictionary. All rights reserved.
-        </p>
-      </footer>
     </>
   );
 }

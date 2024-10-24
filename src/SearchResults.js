@@ -7,7 +7,10 @@ const SearchResults = ({ searchTerm }) => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!searchTerm) return;
+    if (!searchTerm) {
+      setResults([]);
+      return;
+    }
 
     const fetchResults = async () => {
       setLoading(true);
@@ -36,21 +39,41 @@ const SearchResults = ({ searchTerm }) => {
 
   return (
     <div className="mt-4">
-      {results.length > 0 ? (
-        <Card>
+      {searchTerm ? ( // Check if there's a search term
+        results.length > 0 ? (
+          <Card className="definition-card">
+            <Card.Body>
+              <Card.Title className="text-center">
+                Definitions for: {searchTerm}
+              </Card.Title>
+              <ul className="definition-list">
+                {results.map((definition, index) => (
+                  <li key={index}>{definition}</li>
+                ))}
+              </ul>
+            </Card.Body>
+          </Card>
+        ) : (
+          <Card className="definition-card">
+            <Card.Body>
+              <Card.Title className="text-center text-warning">
+                No definitions found for "{searchTerm}".
+              </Card.Title>
+              <p className="text-center">Try searching for a different term!</p>
+            </Card.Body>
+          </Card>
+        )
+      ) : (
+        <Card className="definition-card">
           <Card.Body>
-            <Card.Title className="text-center">
-              Definitions for: {searchTerm}
+            <Card.Title className="text-center text-muted">
+              Please enter a term to see its definitions.
             </Card.Title>
-            <ul className="definition-list">
-              {results.map((definition, index) => (
-                <li key={index}>{definition}</li>
-              ))}
-            </ul>
+            <p className="text-center">
+              Use the search bar above to get started!
+            </p>
           </Card.Body>
         </Card>
-      ) : (
-        <p>No definitions found for "{searchTerm}"</p>
       )}
     </div>
   );

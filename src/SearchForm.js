@@ -11,14 +11,18 @@ const SearchForm = ({ onSearch }) => {
   };
 
   return (
-    <InputGroup className="mb-3">
+    <InputGroup className="custom-search-bar mb-4">
       <FormControl
-        placeholder="Enter a term..."
+        placeholder="Search for a word..."
         value={term}
         onChange={(e) => setTerm(e.target.value)}
-        className="search-input"
+        className="custom-search-input"
       />
-      <Button variant="success" onClick={handleSearch}>
+      <Button
+        variant="success"
+        className="custom-search-button"
+        onClick={handleSearch}
+      >
         Lookup
       </Button>
     </InputGroup>
